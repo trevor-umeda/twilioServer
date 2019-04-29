@@ -10,12 +10,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => res.send('Hello World!'))
-
+console.log("Startingu p");
 app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse();
 
   twiml.message('The Robots are coming! Head for the hills!');
-
+console.log("Got a message");
   res.writeHead(200, {'Content-Type': 'text/xml'});
   res.end(twiml.toString());
 });
