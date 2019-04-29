@@ -1,7 +1,7 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-
+const fs = require("fs");
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 var app = express();
 
@@ -15,7 +15,9 @@ app.post('/sms', (req, res) => {
   // const twiml = new MessagingResponse();
 
   // twiml.message('The Robots are coming! Head for the hills!');
-console.log(res.body);
+  console.log(req.body.Body);
+  fs.appendFileSync('incomingMessages', req.body.Body);
+
   // res.writeHead(200, {'Content-Type': 'text/xml'});
   // res.end(twiml.toString());
 });
