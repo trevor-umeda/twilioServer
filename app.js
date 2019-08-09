@@ -21,8 +21,8 @@ app.post('/sms', (req, res) => {
   console.log(req.body.Body);
   fs.appendFileSync('incomingMessages', req.body.Body+'\r\n');
   //
-  // res.writeHead(200, {'Content-Type': 'text/xml'});
-  // res.end(twiml.toString());
+  res.writeHead(200, {'Content-Type': 'text/xml'});
+  res.end(twiml.toString());
 });
 
 // catch 404 and forward to error handler
