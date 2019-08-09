@@ -4,6 +4,13 @@ var path = require('path');
 const fs = require("fs");
 const MessagingResponse = require('twilio').twiml.MessagingResponse;
 var app = express();
+var errorhandler = require('errorhandler')
+const port = 3000
+process.on('uncaughtException', function (exception) {
+  console.log(exception); // to see your exception details in the console
+  // if you are on production, maybe you can send the exception details to your
+  // email as well ?
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -13,11 +20,13 @@ app.get('/', (req, res) => res.send('Hello World!'))
 console.log("Startingu p");
 app.post('/sms', (req, res) => {
   // const twiml = new MessagingResponse();
-
+  //
   // twiml.message('The Robots are coming! Head for the hills!');
+  console.log("DFSDFDSF")
+  console.log(req.body)
   console.log(req.body.Body);
   fs.appendFileSync('incomingMessages', req.body.Body+'\r\n');
-
+  //
   // res.writeHead(200, {'Content-Type': 'text/xml'});
   // res.end(twiml.toString());
 });
@@ -37,5 +46,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 module.exports = app;
